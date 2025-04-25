@@ -1,0 +1,18 @@
+riscv-none-elf-gcc -march=rv32imac_zicsr -mabi=ilp32 -nostartfiles -ffreestanding -c -o lib.o lib.c
+riscv-none-elf-gcc -march=rv32imac_zicsr -mabi=ilp32 -nostartfiles -ffreestanding -c -o os.o os.c
+riscv-none-elf-gcc -march=rv32imac_zicsr -mabi=ilp32 -nostartfiles -ffreestanding -c -o task.o task.c
+riscv-none-elf-gcc -march=rv32imac_zicsr -mabi=ilp32 -nostartfiles -ffreestanding -c -o user.o user.c
+riscv-none-elf-gcc -march=rv32imac_zicsr -mabi=ilp32 -nostartfiles -ffreestanding -c -o start.o start.s
+riscv-none-elf-gcc -march=rv32imac_zicsr -mabi=ilp32 -nostartfiles -ffreestanding -c -o sys.o sys.s
+riscv-none-elf-ld -T os.ld -o kernel.elf lib.o os.o task.o user.o start.o sys.o
+
+
+qemu-system-riscv32 -machine virt -bios none -kernel kernel.elf -nographic
+
+
+
+
+
+
+
+
